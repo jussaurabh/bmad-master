@@ -1,0 +1,76 @@
+# =============================================================================
+# BMAD Local Manifest — Personal Project Registry (EXAMPLE FILE)
+# =============================================================================
+#
+# ⚠️  IMPORTANT: This file is an EXAMPLE only.
+#     Copy it to manifest.local.yaml and fill in YOUR projects.
+#
+#     manifest.local.yaml is gitignored — it is MACHINE-LOCAL and PERSONAL.
+#     NEVER commit manifest.local.yaml to version control.
+#     NEVER put real project paths or names in this example file.
+#
+# How to set up:
+#   cp _bmad/manifest.local.yaml.example _bmad/manifest.local.yaml
+#   Then ask bmad-master: "Register a new project" or edit the file directly.
+#
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# YOUR PROJECTS
+# Add your project repositories here.
+# bmad-master manages this list via [RP], [UP], [LP] commands.
+# All other agents READ ONLY — never write to this file directly.
+#
+# Project name is used as the memory lane folder name:
+#   ~/.local_memory/<agent-id>/<project-name>/
+# -----------------------------------------------------------------------------
+projects:
+  - name: my-frontend
+    repo_path: ~/Work/projects/my-frontend
+    summary: "Frontend application — brief description of what it does."
+    stack:
+      - react
+      - typescript
+      - vite
+    related_to:
+      - my-backend
+
+  - name: my-backend
+    repo_path: ~/Work/projects/my-backend
+    summary: "Backend API — brief description of what it does."
+    stack:
+      - nestjs
+      - mongodb
+    related_to:
+      - my-frontend
+
+  # Add more projects below using the same format:
+  # - name: your-project-name
+  #   repo_path: ~/Work/projects/your-project
+  #   summary: "One line description"
+  #   stack:
+  #     - framework
+  #     - language
+  #   related_to: []
+
+# -----------------------------------------------------------------------------
+# MEMORY SETTINGS
+# Controls journal retention and memory behaviour across all agents.
+# -----------------------------------------------------------------------------
+memory_journal_retention_days: 90   # Days before daily journals are archived.
+                                     # Change to any positive integer (e.g. 30, 60, 180).
+
+# -----------------------------------------------------------------------------
+# GENERAL MEMORY LANES (optional)
+# Named general lanes for non-project brainstorming, learning, architecture notes.
+# bmad-master creates these via [RG] Register General Lane.
+# Default lane (general/general) is always available without registration.
+# -----------------------------------------------------------------------------
+general_lanes: []
+  # Example:
+  # - name: learning
+  #   description: "Notes on new technologies, books, courses"
+  # - name: architecture
+  #   description: "Cross-project architecture decisions and patterns"
+  # - name: brainstorming
+  #   description: "General brainstorming and ideation sessions"

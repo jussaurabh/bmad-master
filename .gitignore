@@ -1,0 +1,11 @@
+# OpenMemory - IDE/Assistant specific rules
+.cursor/rules/openmemory.mdc
+
+# BMAD local manifest — machine-specific, never commit
+_bmad/manifest.local.yaml
+
+.claude/settings.local.json
+.artifacts
+_bmad-output/implementation-artifacts
+_bmad-output/analysis
+.cursor/mcp.json

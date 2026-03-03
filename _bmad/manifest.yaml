@@ -1,0 +1,155 @@
+# =============================================================================
+# BMAD Manifest — Shared Capability Registry
+# =============================================================================
+# This file is committed to the repository and shared across all users.
+# It lists all available BMAD agents and their skills.
+#
+# DO NOT put personal project paths here — use manifest.local.yaml for that.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# AGENT REGISTRY
+# Lists all installed BMAD agents with their module, title, and skills.
+# Worker agents load only their own skills subset at runtime.
+# bmad-master loads the full registry for orchestration.
+# -----------------------------------------------------------------------------
+agents:
+
+  # --- BMM: Business Management Module ---
+  - id: dev
+    module: bmm
+    title: Developer Agent
+    description: Executes stories with TDD, manifest-aware project context, and long-term memory
+    skills_dir: _bmad/bmm/skills/dev/
+    skills:
+      - git/smart-commits
+      - git/branch-management
+      - git/pull-requests
+      - git/rebase-and-merge
+      - git/stash-and-undo
+      - git/history-and-inspection
+      - git/error-diagnosis
+      - git/gh-workflows
+      - git/conflict-analysis
+      - git/conflict-pattern-recognition
+      - git/semantic-merge
+      - git/dependency-chain-resolution
+      - git/post-merge-verification
+      - debugging/diagnostic-workflow
+      - debugging/log-analysis
+      - debugging/cross-service-tracing
+      - infrastructure/docker-patterns
+      - infrastructure/ci-cd-patterns
+      - infrastructure/deployment-patterns
+      - code/code-quality
+      - code/testing-patterns
+      - docs/api-contract-format
+      - docs/type-sync-patterns
+
+  - id: pm
+    module: bmm
+    title: Product Manager Agent
+    description: Creates and manages PRDs, epics, and product strategy
+    skills_dir: _bmad/bmm/skills/pm/
+    skills: []
+
+  - id: architect
+    module: bmm
+    title: Architect Agent
+    description: Designs system architecture and technical decisions
+    skills_dir: _bmad/bmm/skills/architect/
+    skills: []
+
+  - id: analyst
+    module: bmm
+    title: Business Analyst Agent
+    description: Requirements analysis, research, and discovery
+    skills_dir: _bmad/bmm/skills/analyst/
+    skills: []
+
+  - id: sm
+    module: bmm
+    title: Scrum Master Agent
+    description: Sprint planning, story creation, and team coordination
+    skills_dir: _bmad/bmm/skills/sm/
+    skills: []
+
+  - id: ux-designer
+    module: bmm
+    title: UX Designer Agent
+    description: UX design, wireframes, and user experience patterns
+    skills_dir: _bmad/bmm/skills/ux-designer/
+    skills: []
+
+  - id: tea
+    module: bmm
+    title: Test Engineer Agent
+    description: Test architecture, coverage, and quality assurance
+    skills_dir: _bmad/bmm/skills/tea/
+    skills: []
+
+  - id: tech-writer
+    module: bmm
+    title: Technical Writer Agent
+    description: Documentation, API references, and technical content
+    skills_dir: _bmad/bmm/skills/tech-writer/
+    skills: []
+
+  # --- BMB: BMAD Builder Module ---
+  - id: agent-builder
+    module: bmb
+    title: Agent Building Expert
+    description: Creates, edits, and validates BMAD Core compliant agents
+    skills_dir: _bmad/bmb/skills/
+    skills: []
+
+  - id: workflow-builder
+    module: bmb
+    title: Workflow Builder
+    description: Creates and validates BMAD workflow files
+    skills_dir: _bmad/bmb/skills/
+    skills: []
+
+  - id: module-builder
+    module: bmb
+    title: Module Builder
+    description: Creates new BMAD modules with agents and workflows
+    skills_dir: _bmad/bmb/skills/
+    skills: []
+
+  # --- CIS: Continuous Innovation System ---
+  - id: brainstorming-coach
+    module: cis
+    title: Brainstorming Coach
+    description: Facilitates creative brainstorming and ideation sessions
+    skills_dir: _bmad/cis/skills/
+    skills: []
+
+  - id: innovation-strategist
+    module: cis
+    title: Innovation Strategist
+    description: Business model innovation and disruption strategy
+    skills_dir: _bmad/cis/skills/
+    skills: []
+
+  # --- bmad-master: Orchestrator ---
+  - id: bmad-master
+    module: stand-alone
+    title: BMAD Master Orchestrator
+    description: System orchestrator — manages manifest, projects, memory lanes, and agent routing
+    skills_dir: _bmad/skills/bmad-master/
+    skills: []
+
+# -----------------------------------------------------------------------------
+# CORE TASKS
+# Shared tasks available to all agents.
+# -----------------------------------------------------------------------------
+core_tasks:
+  memory:
+    read: _bmad/core/tasks/memory/memory-read.md
+    write: _bmad/core/tasks/memory/memory-write.md
+    search: _bmad/core/tasks/memory/memory-search.sh
+  tasks:
+    read:  _bmad/core/tasks/tasks/tasks-read.md
+    write: _bmad/core/tasks/tasks/tasks-write.md
+    fetch: _bmad/core/tasks/tasks/local-tasks.sh
