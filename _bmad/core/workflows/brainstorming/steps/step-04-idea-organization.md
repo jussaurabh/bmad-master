@@ -135,6 +135,22 @@ Review your organized ideas and identify:
 
 **What stands out to you as most valuable? Share your top priorities and I'll help you develop action plans.**"
 
+**Memory Write — MANDATORY (Checkpoint 3: Prioritization Decided):**
+
+After user shares their top priority selections, append to `~/.local_memory/{active-memory-lane}/[YYYY-MM-DD].md`:
+```
+## [HH:MM] Prioritization Decisions
+- Session: {session_topic}
+- Top priority ideas selected:
+  1. {idea-title} — {rationale}
+  2. {idea-title} — {rationale}
+  3. {idea-title} — {rationale}
+- Quick wins identified: {list}
+- Breakthrough concepts for longer-term: {list}
+- Prioritization criteria used: impact, feasibility, innovation, alignment
+```
+Emit: `[memory updated ✓ → {active-memory-lane}/YYYY-MM-DD.md]`
+
 ### 5. Develop Action Plans
 
 Create concrete next steps for prioritized ideas:
@@ -163,6 +179,98 @@ Create concrete next steps for prioritized ideas:
 **Success Indicators:** [How to measure progress]
 
 **Would you like me to develop similar action plans for your other top ideas?**"
+
+### 5b. Tasks & Story Files — MANDATORY (Checkpoint 4: After All Action Plans)
+
+Once all action plans are developed, execute this sequence for each priority idea:
+
+**A. Create story directory:**
+```bash
+mkdir -p ~/.local_tasks/brainstorming-coach/{active-session}/stories/
+```
+
+**B. For each priority idea, derive `{idea-slug}`:**
+Idea title lowercased, spaces→hyphens, special chars removed, max 40 chars.
+Example: "AI-Powered Onboarding" → `"ai-powered-onboarding"`
+
+**C. Write story file** `~/.local_tasks/brainstorming-coach/{active-session}/stories/{idea-slug}.md`:
+```markdown
+# Story: {idea-title}
+
+**Session:** {session_topic}
+**Date:** {YYYY-MM-DD}
+**Priority:** {high/medium/low}
+**Tags:** brainstorming, ideation
+
+## Idea Description
+{2-3 sentence concept description from idea exploration}
+
+## Novelty
+{What makes this different from obvious solutions}
+
+## Action Steps
+1. {step 1 from action plan}
+2. {step 2 from action plan}
+3. {step 3 from action plan}
+
+## Resources Needed
+{list of requirements from action plan}
+
+## Timeline
+{implementation estimate}
+
+## Success Metrics
+{how to measure progress}
+
+## Origin
+Generated during brainstorming session: {session_topic}
+Technique: {technique-name}
+Date: {YYYY-MM-DD}
+```
+
+**D. Add task entry:**
+```bash
+local-tasks.sh add \
+  --agent brainstorming-coach \
+  --project {active-session} \
+  --title "{idea-title}" \
+  --priority {high|medium|low} \
+  --tags brainstorming,ideation \
+  --body-file ~/.local_tasks/brainstorming-coach/{active-session}/stories/{idea-slug}.md \
+  --created-by brainstorming-coach/{active-session}
+```
+
+**E. Cross-agent routing (ask user):**
+After creating self-tasks, ask:
+"Would you like to route any of these ideas to other agents?
+- **[dev]** — implementation-ready ideas → dev agent inbox
+- **[pm]** — product/feature ideas → pm agent inbox
+- **[analyst]** — research/market ideas → analyst agent inbox
+- **[skip]** — no routing needed"
+
+For each routing choice, run:
+```bash
+local-tasks.sh add \
+  --agent {target-agent} \
+  --project {active-session} \
+  --title "{idea-title}" \
+  --priority {priority} \
+  --tags brainstorming,from-brainstorming-session \
+  --body-file ~/.local_tasks/brainstorming-coach/{active-session}/stories/{idea-slug}.md \
+  --created-by brainstorming-coach/{active-session}
+```
+
+**F. Memory Write — MANDATORY (Checkpoint 4):**
+Append to `~/.local_memory/{active-memory-lane}/[YYYY-MM-DD].md`:
+```
+## [HH:MM] Tasks & Stories Created
+- Stories written: N files in ~/.local_tasks/brainstorming-coach/{active-session}/stories/
+- Tasks added to brainstorming-coach/{active-session}: N
+- Cross-agent tasks routed:
+  - {agent}: {N tasks} for "{idea-titles}"
+```
+Emit: `[memory updated ✓ → {active-memory-lane}/YYYY-MM-DD.md]`
+Emit: `[tasks updated ✓ → brainstorming-coach/{active-session}: N added]`
 
 ### 6. Create Comprehensive Session Documentation
 
@@ -256,6 +364,34 @@ Provide final session wrap-up and forward guidance:
 - **Append the final session content to `{output_folder}/analysis/brainstorming-session-{{date}}.md`**
 - Update frontmatter: `stepsCompleted: [1, 2, 3, 4]`
 - Set `session_active: false` and `workflow_completed: true`
+
+**Final Memory Update — MANDATORY (Checkpoint 5: Session Complete):**
+
+1. Append final journal entry to `~/.local_memory/{active-memory-lane}/[YYYY-MM-DD].md`:
+   ```
+   ## [HH:MM] Session Complete
+   - Total ideas generated: {count}
+   - Techniques used: {list}
+   - Top priority ideas: {list titles}
+   - Tasks created: {count} in brainstorming-coach/{active-session}
+   - Stories written: {count} files
+   - Session output: {output_folder}/analysis/brainstorming-session-{date}.md
+   ```
+
+2. Update `~/.local_memory/{active-session}/SUMMARY.md`:
+   Append or update:
+   ```
+   ## Session {YYYY-MM-DD}: {session_topic}
+   - Ideas: {total count}
+   - Top priorities: {idea-title-1}, {idea-title-2}, {idea-title-3}
+   - Key insight: {most important breakthrough}
+   - Tasks: {N} created in brainstorming-coach/{active-session}
+   - Output: {output_folder}/analysis/brainstorming-session-{date}.md
+   ```
+   If SUMMARY.md > 80 lines → prune old resolved sessions → archive to `SUMMARY-archive-[YYYY-MM].md`.
+
+3. Emit: `[memory updated ✓ → {active-memory-lane}/SUMMARY.md]`
+
 - Complete workflow with positive closure message
 
 ## APPEND TO DOCUMENT:

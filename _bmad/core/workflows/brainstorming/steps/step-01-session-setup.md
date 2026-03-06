@@ -98,7 +98,44 @@ Wait for user responses, then:
 
 **Does this accurately capture what you want to achieve?**"
 
-#### E. Update Frontmatter and Document
+#### E. Memory Write — MANDATORY (Checkpoint 1: Session Confirmed)
+
+Before updating the document, execute this memory write sequence:
+
+1. **Derive session slug:**
+   `{active-session}` = session_topic lowercased, spaces→hyphens, special chars removed, max 30 chars
+   Example: "AI Product Ideas" → `"ai-product-ideas"`
+
+2. **Update session variables:**
+   - `{active-memory-lane}` = `"brainstorming/{active-session}"`
+   - `{story-dir}` = `~/.local_tasks/brainstorming-coach/{active-session}/stories`
+
+3. **Create memory directory:**
+   `mkdir -p ~/.local_memory/brainstorming/{active-session}/`
+
+4. **Append to** `~/.local_memory/brainstorming/{active-session}/[YYYY-MM-DD].md`:
+   ```
+   ## [HH:MM] Session Started
+   - Topic: {session_topic}
+   - Goals: {session_goals}
+   - Approach selected: {selected_approach}
+   - Initiated by: {user_name}
+   ```
+
+5. **Update SUMMARY.md** (`~/.local_memory/brainstorming/{active-session}/SUMMARY.md`):
+   If file doesn't exist, create it with:
+   ```
+   # Brainstorming: {session_topic}
+   Last active: {YYYY-MM-DD}
+
+   ## Sessions
+   - {YYYY-MM-DD}: Session started — {session_topic}
+   ```
+   If file exists, append the new session entry under `## Sessions`.
+
+6. **Emit:** `[memory updated ✓ → brainstorming/{active-session}/YYYY-MM-DD.md]`
+
+#### F. Update Frontmatter and Document
 
 Update the document frontmatter:
 
@@ -108,6 +145,8 @@ stepsCompleted: [1]
 inputDocuments: []
 session_topic: '[session_topic]'
 session_goals: '[session_goals]'
+session_slug: '[active-session]'
+active_memory_lane: 'brainstorming/[active-session]'
 selected_approach: ''
 techniques_used: []
 ideas_generated: []

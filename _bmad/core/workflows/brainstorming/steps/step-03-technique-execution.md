@@ -203,6 +203,20 @@ This technique will help us [what this technique adds]. I'm particularly excited
 
 **Let's begin fresh with this new approach!**"
 
+**Memory Write — MANDATORY (Checkpoint 2: Technique Transition):**
+
+Before restarting for next technique, append to `~/.local_memory/{active-memory-lane}/[YYYY-MM-DD].md`:
+```
+## [HH:MM] Technique Transition: {current-technique} → {next-technique}
+- Technique completed (partial): {current-technique}
+- Key ideas generated:
+  {list top 5 ideas using IDEA FORMAT TEMPLATE titles}
+- Creative breakthrough: {most notable insight}
+- Ideas count so far: {running total}
+- Moving to: {next-technique}
+```
+Emit: `[memory updated ✓ → {active-memory-lane}/YYYY-MM-DD.md]`
+
 **Then restart step 3 for the next technique:**
 
 - Update frontmatter with partial completion of current technique
@@ -279,6 +293,21 @@ After final technique element:
 
 **Integration with Overall Session:**
 [How these insights connect to the broader brainstorming objectives]
+
+**Memory Write — MANDATORY (Checkpoint 2: Technique Completed):**
+
+Append to `~/.local_memory/{active-memory-lane}/[YYYY-MM-DD].md`:
+```
+## [HH:MM] Technique Completed: {technique-name}
+- Technique: {technique-name}
+- Key ideas generated:
+  {list ALL ideas using IDEA FORMAT TEMPLATE titles, grouped by category}
+- Creative breakthrough: {most notable insight from this technique}
+- User creative strengths observed: {what user demonstrated}
+- Ideas count this technique: {count}
+- Running total ideas: {total}
+```
+Emit: `[memory updated ✓ → {active-memory-lane}/YYYY-MM-DD.md]`
 
 **Before we move to idea organization, any final thoughts about this technique? Any insights you want to make sure we carry forward?**
 
